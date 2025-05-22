@@ -21,6 +21,32 @@ router.get('/:id', (req, res) => {
     }
   });
 
+  router.post('/', (req, res) => {
+    try {
+      const { name, price } = req.body;
+  
+      if (!name || price === undefined) {
+        return res.status(400).json({ message: "Name and price are required" });
+      }
+  
+      // Get the highest existing ID and add 1
+      const maxId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
+  
+      const newProduct = {
+        id: maxId + 1,
+        name,
+        price
+      };
+  
+      products.push(newProduct);
+      res.status(201).json(newProduct);
+     } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  
+
 // PUT update product by ID
 router.put('/:id', (req, res) => {
     const product = products.find(p => p.id == req.params.id);
