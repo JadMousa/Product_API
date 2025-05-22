@@ -39,6 +39,17 @@ router.put('/:id', (req, res) => {
   
     res.json(product);
   });
+
+  // DELETE product by ID
+router.delete('/:id', (req, res) => {
+    const index = products.findIndex(p => p.id == req.params.id);
+    if (index !== -1) {
+      const deleted = products.splice(index, 1);
+      res.json({ message: "Product deleted", product: deleted[0] });
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  });
   
   
 
