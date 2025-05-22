@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3222;
 
 // console.log("Server running on port", PORT); For testing
 
-app.use('/api/Products',ProductRoutes); 
+app.use('/api/products',ProductRoutes); 
 
 // 404 fallback
 app.use((req, res) => {
